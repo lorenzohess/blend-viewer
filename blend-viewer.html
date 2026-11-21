@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blend Viewer</title>
+</head>
+<body>
+  <div id="app">
+    <header id="toolbar" role="toolbar" aria-label="Viewer tools">
+      <div class="group">
+        <button id="btn-open" class="primary" title="Open a .blend file (Ctrl+O)">Open .blend</button>
+      </div>
+      <div class="group" aria-label="Framing">
+        <button data-cmd="frame-all" title="Frame all (Home)">Frame all</button>
+        <button data-cmd="frame-selected" title="Frame selected (F or Numpad .)">Frame selected</button>
+      </div>
+      <div class="group views" aria-label="Preset views">
+        <button data-view="front" title="Front, looking along +Y (Numpad 1)">Front</button>
+        <button data-view="back" title="Back (Ctrl+Numpad 1)">Back</button>
+        <button data-view="left" title="Left (Ctrl+Numpad 3)">Left</button>
+        <button data-view="right" title="Right (Numpad 3)">Right</button>
+        <button data-view="top" title="Top (Numpad 7)">Top</button>
+        <button data-view="bottom" title="Bottom (Ctrl+Numpad 7)">Bottom</button>
+        <button data-view="iso" title="Isometric">Iso</button>
+      </div>
+      <div class="group" aria-label="Display">
+        <button data-toggle="ortho" aria-pressed="false" title="Perspective or orthographic (Numpad 5)">Ortho</button>
+        <button data-toggle="wireframe" aria-pressed="false" title="Wireframe (Shift+Z)">Wireframe</button>
+        <button data-toggle="xray" aria-pressed="false" title="X-ray (Alt+Z)">X-ray</button>
+        <button data-toggle="grid" aria-pressed="true" title="Grid">Grid</button>
+        <button data-toggle="axes" aria-pressed="true" title="Axes">Axes</button>
+      </div>
+      <div class="group" aria-label="Visibility">
+        <button data-cmd="isolate" title="Show only the selected objects (/)">Isolate</button>
+        <button data-cmd="show-all" title="Show all objects (Alt+H)">Show all</button>
+      </div>
+      <div class="group">
+        <div class="menu">
+          <button id="btn-export" aria-haspopup="true" aria-expanded="false" title="Export">Export</button>
+          <div id="export-menu" class="menu-pop" role="menu" hidden>
+            <button role="menuitem" data-export="glb-visible">GLB: visible objects</button>
+            <button role="menuitem" data-export="glb-all">GLB: all objects in the scene</button>
+            <button role="menuitem" data-export="stl-selected">STL: selected objects</button>
+            <button role="menuitem" data-export="stl-visible">STL: visible objects</button>
+          </div>
+        </div>
+        <button id="btn-help" title="Keyboard and mouse help">?</button>
+        <button data-toggle="info" aria-pressed="true" title="Show or hide the info panel">Info</button>
+      </div>
+    </header>
+    <div id="banner" role="status" hidden></div>
+    <main id="main">
+      <aside id="outliner" aria-label="Outliner">
+        <div class="panel-head">
+          <input id="filter" type="search" placeholder="Filter by name" aria-label="Filter objects by name" autocomplete="off">
+        </div>
+        <div id="tree" role="tree" aria-label="Objects"></div>
+      </aside>
+      <div id="splitter" role="separator" aria-orientation="vertical" aria-label="Resize outliner" tabindex="0"></div>
+      <section id="viewport" aria-label="3D view">
+        <button id="dropzone" type="button">
+          <span class="dz-title">Drop a .blend file here</span>
+          <span class="dz-sub">or click to choose one. The file stays on this computer: nothing is uploaded.</span>
+        </button>
+        <div id="loading" hidden>
+          <div class="ld-stage">Loading</div>
+          <div class="ld-bar"><div class="ld-fill"></div></div>
+        </div>
+        <div id="help" class="help" hidden>
+          <h2>Mouse</h2>
+          <p>Left drag: orbit. Right drag or Shift + left drag: pan. Wheel: zoom to the cursor. Click: select. Double-click: frame the object.</p>
+          <h2>Keys</h2>
+          <table>
+            <tr><td>Home</td><td>Frame all</td></tr>
+            <tr><td>F, Numpad .</td><td>Frame selected</td></tr>
+            <tr><td>Numpad 1 / 3 / 7</td><td>Front / right / top (with Ctrl: back / left / bottom)</td></tr>
+            <tr><td>Numpad 5</td><td>Perspective or orthographic</td></tr>
+            <tr><td>Shift+Z, Alt+Z</td><td>Wireframe, X-ray</td></tr>
+            <tr><td>H, Shift+H, Alt+H</td><td>Hide selected, hide others, show all</td></tr>
+            <tr><td>/</td><td>Isolate selected</td></tr>
+            <tr><td>Esc</td><td>Clear the selection</td></tr>
+            <tr><td>Ctrl+O</td><td>Open a file</td></tr>
+          </table>
+        </div>
+      </section>
+      <aside id="info" aria-label="Info panel"></aside>
+    </main>
+    <footer id="status">No file loaded</footer>
+  </div>
+  <input type="file" id="file-input" accept=".blend,.blend1,.blend2,.blend3" hidden>
+  <script type="module" src="./src/main.ts"></script>
+</body>
+</html>

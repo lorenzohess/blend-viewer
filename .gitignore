@@ -1,0 +1,15 @@
+# Dependencies and local tools
+node_modules/
+.venv/
+__pycache__/
+
+# Test results (screenshots and exported files)
+test-output/
+*.log
+
+# Blender backup files
+*.blend1
+
+# Your own .blend files in the project root. The test files in
+# blend-viewer-handoff/test-files/ are not affected by this rule.
+/*.blend
